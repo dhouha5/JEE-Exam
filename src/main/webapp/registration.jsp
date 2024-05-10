@@ -14,6 +14,7 @@
 <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
+<input type="hidden" id="status" value="<%= request.getAttribute("status") %>">
 
 	<div class="main">
 
@@ -78,6 +79,67 @@
 	<!-- JS -->
 	<script src="vendor/jquery/jquery.min.js"></script>
 	<script src="js/main.js"></script>
+	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+	<link rel="stylesheet" href="alert/dist/sweetalert.css">
+
+<script>
+    document.getElementById("register-form").addEventListener("submit", function(event) {
+        event.preventDefault(); // Prevent the form from submitting by default
+
+        // Retrieve form input values
+        var name = document.getElementById("name").value;
+        var email = document.getElementById("email").value;
+        var pass = document.getElementById("pass").value;
+        var re_pass = document.getElementById("re_pass").value;
+        var contact = document.getElementById("contact").value;
+        var agreeTerm = document.getElementById("agree-term").checked;
+
+        // Basic validation
+        if (name.trim() === '') {
+            alert("Please enter your name.");
+            return;
+        }
+
+        if (email.trim() === '') {
+            alert("Please enter your email.");
+            return;
+        }
+
+        if (pass.trim() === '') {
+            alert("Please enter a password.");
+            return;
+        }
+
+        if (pass !== re_pass) {
+            alert("Passwords do not match.");
+            return;
+        }
+
+        if (contact.trim() === '') {
+            alert("Please enter your contact number.");
+            return;
+        }
+
+        if (!agreeTerm) {
+            alert("Please agree to the terms of service.");
+            return;
+        }
+
+        // If all validations pass, show success modal
+        swal({
+            title: "Success!",
+            text: "Registration successful.",
+            icon: "success",
+            button: "OK",
+        }).then(() => {
+            // Optionally, you can redirect the user to another page after success
+            window.location.href = "index.jsp"; // Redirect to login page
+        });
+
+        // You can choose to submit the form here if needed
+        // document.getElementById("register-form").submit();
+    });
+</script>
 
 
 

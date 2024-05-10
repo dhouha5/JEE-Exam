@@ -34,7 +34,7 @@ public class RegistrationServlet extends HttpServlet {
         try {
             // **Assuming you're using MySQL Connector/J (replace if necessary)**
         	Class.forName("com.mysql.jdbc.Driver"); // Update class name based on your driver
-            con = DriverManager.getConnection("jdbc:mysql://localhost:3306/imprimante", "root", "");
+        	con = DriverManager.getConnection("jdbc:mysql://localhost:3306/imprimante?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC&useSSL=false", "root", "");
             PreparedStatement pst = con.prepareStatement("insert into users(uname,upwd,uemail,umobile) values(?,?,?,?)");
             pst.setString(1, uname);
             pst.setString(2, upwd);
