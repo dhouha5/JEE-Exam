@@ -36,9 +36,18 @@ public class Login extends HttpServlet {
             pst.setString(1, uemail);
             pst.setString(2, upwd);
             ResultSet rs = pst.executeQuery();
+            
             if (rs.next()) {
+            	String role = rs.getString("role");
+            	if( role.equals("Teacher") ) {
+            		dispatcher = request.getRequestDispatcher("printRequest");
+            		request.setAttribute("get", "1");
+            	}else if (role.equals("Admin") ) {
+            		dispatcher = request.getRequestDispatcher("manageUser");
+            	}else {
+            		dispatcher = request.getRequestDispatcher("manageUser");
+            	}
                 session.setAttribute("name", rs.getString("uname"));
-                dispatcher = request.getRequestDispatcher("index.jsp");
             } else {
                 // If login fails, redirect back to the login page with an error message
                 dispatcher = request.getRequestDispatcher("login.jsp");
